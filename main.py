@@ -3,7 +3,6 @@ import os
 from dotenv import load_dotenv
 from twilio.rest import Client
 import time
-from cinfig import *
 from bs4 import BeautifulSoup
 
 # Load environment variables from .env file
@@ -14,9 +13,12 @@ account_sid = os.getenv('TWILIO_ACCOUNT_SID')
 auth_token = os.getenv('TWILIO_AUTH_TOKEN')
 twilio_phone_number = os.getenv('TWILIO_PHONE_NUMBER')
 destination_phone_number = os.getenv('DESTINATION_PHONE_NUMBER')
+website_url = os.getenv('WEBSITE')
+TEST_PROGRAM = os.getenv('TEST_PROGRAM')
+
+TEST_PROGRAM = TEST_PROGRAM.lower() == 'true'
 
 # Website to monitor
-website_url = WEBSITE
 previous_content = None
 previous_images = None
 
@@ -30,8 +32,9 @@ def extract_text_from_html(html):
 
 def extract_images_from_html(html):
     soup = BeautifulSoup(html, 'html.parser')
-    images = [img['src'] for img in soup.find_all('img')]
+    images = [img.get('src') for img in soup.find_all('img') if img.get('src')]
     return images
+
 
 def check_website():
     global previous_content, previous_images
