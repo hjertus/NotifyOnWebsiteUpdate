@@ -43,10 +43,8 @@ def check_website():
     response = requests.get(website_url)
     current_html_content = response.text
 
-    # Extract text from specific HTML elements
     current_content = extract_text_from_html(current_html_content)
 
-    # Extract image URLs
     current_images = extract_images_from_html(current_html_content)
 
     if TEST_PROGRAM:
@@ -82,6 +80,7 @@ if __name__ == "__main__":
     while True:
         check_website()
         if TEST_PROGRAM:
+            # Wait for 10 sec before checking again for testing reasons
             time.sleep(10)
         else:
             # Wait for an hour before checking again
