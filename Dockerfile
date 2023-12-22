@@ -19,4 +19,4 @@ ENV DESTINATION_PHONE_NUMBER=your_destination_phone_number
 ENV WEBSITE=your_website_url
 
 # Run your_script_name.py when the container launches
-CMD ["python", "./your_script_name.py"]
+CMD ["python", "./main.py"]
